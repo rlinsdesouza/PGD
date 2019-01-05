@@ -15,6 +15,7 @@
                     @endif
 
                     <insumos-component></insumos-component>
+                    <tableinsumos-component></tableinsumos-compoent>
                 </div>
             </div>
         </div>
