@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProducaosTable extends Migration
+class CreateInsumoPratoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateProducaosTable extends Migration
      */
     public function up()
     {
-        Schema::create('producaos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('data',10);
+        Schema::create('insumo_prato', function (Blueprint $table) {
+            $table->integer('insumo_id')->unsigned();
             $table->integer('prato_id')->unsigned();
+            $table->primary(['insumo_id','prato_id']);
+            $table->foreign('insumo_id')->references('id')->on('insumos')->onDelete('cascade');
             $table->foreign('prato_id')->references('id')->on('pratos')->onDelete('cascade');
-            $table->integer('pessoa_id')->unsigned();
-            $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateProducaosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producaos');
+        Schema::dropIfExists('insumo_prato');
     }
 }

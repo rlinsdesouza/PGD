@@ -15,6 +15,9 @@ class CreateInsumosTable extends Migration
     {
         Schema::create('insumos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nome',100);
+            $table->enum('lactose',['S','N']);
+            $table->enum('gluten',['S','N']);
             $table->timestamps();
         });
     }

@@ -1,0 +1,47 @@
+#CRIACAO DO PROJETO
+composer create-project laravel/laravel avaliacaodesempenhoweb
+
+#PERMISSAO PARA ACESSO A PASTA STORAGE
+sudo chmod -R gu+w storage  
+sudo chmod -R guo+w storage
+
+
+#CRIA O BANCO NO MYSQL
+configura o \.env e o \config\database.php
+
+#NO LINUX - EVITANDO PROBLEMAS COM RELACIONAMENTO
+https://www.devmedia.com.br/framework-php-laravel-trabalhando-com-rotas/33363 (Problema comum com rotas)
+
+sudo a2enmod rewrite (corrigir com esse comando) 
+
+#CRIANDO AS CLASSES MODELOS
+php artisan make:model Models\\Avaliacao -m 
+php artisan make:model Models\\Pessoa -m
+php artisan make:model Models\\Insumo -m
+php artisan make:model Models\\Prato -m
+php artisan make:model Models\\Producao -m 
+
+#FAZENDO OS RELACIONAMENTOS E DEFINICAO DAS CHAVES ESTRANGEIRAS
+https://laravel.com/docs/5.4/eloquent-relationships#defining-relationships
+https://medium.com/trainingcenter/relacionando-models-e-tabelas-no-laravel-5-4-a8365a12eca2
+
+#PARA RELACIONAMENTO MANY TO MANY
+php artisan make:migration create_insumo_prato_table
+
+#PROBLEMA AO MOVER A CLASSE USER.php
+https://stackoverflow.com/questions/35821477/class-app-user-not-found-in-laravel
+
+#CRIANDO AS TABELAS ATRAVES DO MIGRATE
+php artisan migrate
+
+atencao para o nome dos arquivos do migrations, pois vai definir a ordem de criacao das tabelas;
+atencao para erro - https://laravel-news.com/laravel-5-4-key-too-long-error
+
+#CRIANDO SISTEMA DE LOGIN/AUTH
+php artisan make:AUTH
+
+#CRIANDO OS PASSOS PARA CRUD
+php artisan make:controller InsumosController
+cria uma funcao no controller
+cria a view
+define a rota pra view
