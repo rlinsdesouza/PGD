@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <insumos-component></insumos-component>
                 </div>
             </div>
         </div>
