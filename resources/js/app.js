@@ -8,6 +8,17 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.VueResource = require('vue-resource');
+window.BootstrapVue = require('bootstrap-vue');
+window.ElementUi = require('element-ui');
+window.ElementLocale = require('element-ui/lib/locale/lang/pt-br');
+window.Vue.use(window.VueResource);
+window.Vue.use(window.BootstrapVue);
+window.Vue.use(window.ElementUi, window.ElementLocale);
+
+
+// window.Vue.use(window.VueAdsTableTree);
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,8 +31,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('insumos-component', require('./components/InsumosComponent.vue').default);
-Vue.component('tableinsumos-component', require('./components/TableInsumosComponent.vue').default);
+// Vue.component('insumos-component', require('./components/InsumosComponent.vue').default);
+Vue.component('bcomplete-table', require('./components/bcompletetable').default);
+Vue.component('table-component', require('./components/tablecomponent').default);
+
 
 
 /**
@@ -31,5 +44,5 @@ Vue.component('tableinsumos-component', require('./components/TableInsumosCompon
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });
