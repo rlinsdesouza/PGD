@@ -56,10 +56,10 @@
              :sort-direction="sortDirection"
              @filtered="onFiltered"
     >
-      <!--<template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
+      <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
       <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
-      <template slot="actions" slot-scope="row"> -->
-        <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
+      <template slot="actions" slot-scope="row">
+        We use @click.stop here to prevent a 'row-clicked' event from also happening
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
@@ -131,41 +131,50 @@
 
 
 export default {
-  props: ['fieldsa', 'itemsa'],
+  props: ['url'],
   data () {
+    console.log(this.url)
+     var dados = fetch(this.url)
+        .then(res => res.json())
+        .then(json => {
+          var dad = [];
+          dad.push(Object.keys(json.data[0]));
+          console.log(dad); 
+          return dad;
+      })
     return {
-      items: this.itemsa,
-      // items: [
-      //                                   { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-      //                                   { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
-      //                                   { key: 'isActive', label: 'is Active' },
-      //                                   { key: 'actions', label: 'Actions' }],
+      // items: this.items,
+      items: [
+                                        { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
+                                        { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
+                                        { key: 'isActive', label: 'is Active' },
+                                        { key: 'actions', label: 'Actions' }],
 
-      fields: this.fieldsa,
-      // fields: [
-      //                               { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-      //                               { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-      //                               {
-      //                                 isActive: false,
-      //                                 age: 9,
-      //                                 name: { first: 'Mini', last: 'Navarro' },
-      //                                 _rowVariant: 'success'
-      //                               },
-      //                               { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-      //                               { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-      //                               { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-      //                               { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-      //                               {
-      //                                 isActive: true,
-      //                                 age: 87,
-      //                                 name: { first: 'Larsen', last: 'Shaw' },
-      //                                 _cellVariants: { age: 'danger', isActive: 'warning' }
-      //                               },
-      //                               { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-      //                               { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-      //                               { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-      //                               { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-      //                             ],
+      // fields: this.fields,
+      fields: [
+                                    { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+                                    { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+                                    {
+                                      isActive: false,
+                                      age: 9,
+                                      name: { first: 'Mini', last: 'Navarro' },
+                                      _rowVariant: 'success'
+                                    },
+                                    { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+                                    { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+                                    { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+                                    { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+                                    {
+                                      isActive: true,
+                                      age: 87,
+                                      name: { first: 'Larsen', last: 'Shaw' },
+                                      _cellVariants: { age: 'danger', isActive: 'warning' }
+                                    },
+                                    { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+                                    { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+                                    { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+                                    { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+                                  ],
       currentPage: 1,
       perPage: 5,
       totalRows: this.itemsa.length,

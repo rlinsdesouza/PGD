@@ -65,7 +65,8 @@
                     
                                 >
                                 </table-component> --}}
-                                <table-component></table-component>
+                                {{-- <table-component urlfetch='http://localhost/PGD/public/insumos/listar'></table-component> --}}
+                                <bcomplete-table url='http://localhost/PGD/public/insumos/listar'></bcomplete-table>
                             </div>
                             
                         </div>

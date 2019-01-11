@@ -10,14 +10,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
 window.BootstrapVue = require('bootstrap-vue');
-window.ElementUi = require('element-ui');
-window.ElementLocale = require('element-ui/lib/locale/lang/pt-br');
 window.Vue.use(window.VueResource);
 window.Vue.use(window.BootstrapVue);
-window.Vue.use(window.ElementUi, window.ElementLocale);
 
+import ElementUI from 'element-ui'
+import locale from 'element-ui/lib/locale/lang/pt-br'
 
-// window.Vue.use(window.VueAdsTableTree);
+Vue.use(ElementUI, { locale });
 
 
 /**
@@ -33,7 +32,7 @@ window.Vue.use(window.ElementUi, window.ElementLocale);
 
 // Vue.component('insumos-component', require('./components/InsumosComponent.vue').default);
 Vue.component('bcomplete-table', require('./components/bcompletetable').default);
-Vue.component('table-component', require('./components/tablecomponent').default);
+// Vue.component('table-component', require('./components/tablecomponent').default);
 
 
 

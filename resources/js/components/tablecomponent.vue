@@ -1,7 +1,6 @@
 <template>
 <div>
-    <el-button @click="resetDateFilter">reset date filter</el-button>
-    <el-button @click="clearFilter">reset all filters</el-button>
+    <el-button @click="clearFilter">Remover todos os filtros</el-button>
     <el-table
      ref="filterTable"
     :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
@@ -23,16 +22,16 @@
         <el-input
           v-model="search"
           size="mini"
-          placeholder="Type to search"/>
+          placeholder="Pesquisar por nome"/>
       </template>
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+          @click="handleEdit(scope.$index, scope.row)">Editar</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          @click="handleDelete(scope.$index, scope.row)">Deletar</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -42,7 +41,18 @@
 
 <script>
   export default {
+    props: ['urlfetch'],
+    // props: {
+    //     url: String,
+    // },
     data() {
+      console.log(this.urlfetch)
+      fetch(this.urlfetch)
+        .then(res => res.json())
+        .then(json => {
+        console.log(json.toarray())
+        // return json
+      })
       return {
         tableData: [{
           date: '2016-05-03',
@@ -65,9 +75,6 @@
       }
     },
     methods: {
-      resetDateFilter() {
-        this.$refs.filterTable.clearFilter('date');
-      },
       clearFilter() {
         this.$refs.filterTable.clearFilter();
       },  
@@ -77,7 +84,7 @@
       handleDelete(index, row) {
         console.log(index, row);
       },
-    filterHandler(value, row, column) {
+      filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
       },
