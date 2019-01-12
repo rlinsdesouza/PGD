@@ -66,7 +66,9 @@
                                 >
                                 </table-component> --}}
                                 {{-- <table-component urlfetch='http://localhost/PGD/public/insumos/listar'></table-component> --}}
-                                <bcomplete-table url='http://localhost/PGD/public/insumos/listar'></bcomplete-table>
+                                <bcomplete-table 
+                                :colums = "{id:'Código', nome:'Nome do insumo', lactose:'Possui lactose?', gluten: 'Possui glúten?'}"
+                                url='http://localhost/PGD/public/insumos/listar'></bcomplete-table>
                             </div>
                             
                         </div>

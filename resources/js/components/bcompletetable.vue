@@ -59,7 +59,7 @@
       <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
       <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
       <template slot="actions" slot-scope="row">
-        We use @click.stop here to prevent a 'row-clicked' event from also happening
+        <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
@@ -92,18 +92,6 @@
 
 <script>
 
-
-
-
-
-// const fields = [
-//         { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-//         { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
-//         { key: 'isActive', label: 'is Active' },
-//         { key: 'actions', label: 'Actions' }
-//       ]
-
-
 // const items = [
 //   { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
 //   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
@@ -131,53 +119,59 @@
 
 
 export default {
-  props: ['url'],
+  props: ['colums','url'],
   data () {
-    console.log(this.url)
-     var dados = fetch(this.url)
-        .then(res => res.json())
-        .then(json => {
-          var dad = [];
-          dad.push(Object.keys(json.data[0]));
-          console.log(dad); 
-          return dad;
-      })
-    return {
-      // items: this.items,
-      items: [
-                                        { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-                                        { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
-                                        { key: 'isActive', label: 'is Active' },
-                                        { key: 'actions', label: 'Actions' }],
+    var colunas =[];
+    var coluna = {};
+    var namedata = Object.keys(this.colums);
+    var namecolum = Object.values(this.colums);
+    for (let index = 0; index < namedata.length; index++) {
+      coluna['key'] = namedata[index];
+      coluna['label'] = namecolum[index];
+      coluna['sortable'] = true;
+      colunas.push(coluna);
+      coluna ={};
+    }
 
-      // fields: this.fields,
-      fields: [
-                                    { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-                                    { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-                                    {
-                                      isActive: false,
-                                      age: 9,
-                                      name: { first: 'Mini', last: 'Navarro' },
-                                      _rowVariant: 'success'
-                                    },
-                                    { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-                                    { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-                                    { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-                                    { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-                                    {
-                                      isActive: true,
-                                      age: 87,
-                                      name: { first: 'Larsen', last: 'Shaw' },
-                                      _cellVariants: { age: 'danger', isActive: 'warning' }
-                                    },
-                                    { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-                                    { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-                                    { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-                                    { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-                                  ],
+
+    // var rows = [];
+    // async function dados() {
+    //   await fetch(this.url)
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     return json;
+    //   })
+    // }
+  
+    // var dados = dados ();
+    dados = fetch(this.url)
+      .then(res => res.json())
+      .then(json => {
+        return this.items.json;
+    })
+
+    return {
+      items: {},
+      // [
+      //   {id: 1, nome: 'Testando', lactose: 'S', gluten: 'N' },
+      //   {id: 2, nome: 'Testand2', lactose: 'N', gluten: 'N' },
+      //   {id: 3, nome: 'Testand3', lactose: 'N', gluten: 'N' },
+      //   {id: 4, nome: 'Testand4', lactose: 'S', gluten: 'N' },
+      
+      // ],
+      // fields: [
+      //   { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
+      //   { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
+      //   { key: 'isActive', label: 'is Active' },
+      //   { key: 'actions', label: 'Actions' }
+      // ],
+      fields: colunas, 
+      // axios
+      // .get(this.url)
+      // .then(response => {return response.data}),
       currentPage: 1,
       perPage: 5,
-      totalRows: this.itemsa.length,
+      totalRows: this.fields.length,
       pageOptions: [ 5, 10, 15 ],
       sortBy: null,
       sortDesc: false,
@@ -189,7 +183,7 @@ export default {
   computed: {
     sortOptions () {
       // Create an options list from our fields
-      return this.fieldsa
+      return this.fields
         .filter(f => f.sortable)
         .map(f => { return { text: f.label, value: f.key } })
     }
@@ -209,7 +203,7 @@ export default {
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
-  }
+  },
 }
 </script>
 

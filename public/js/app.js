@@ -3483,12 +3483,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// const fields = [
-//         { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-//         { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
-//         { key: 'isActive', label: 'is Active' },
-//         { key: 'actions', label: 'Actions' }
-//       ]
 // const items = [
 //   { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
 //   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
@@ -3514,130 +3508,58 @@ __webpack_require__.r(__webpack_exports__);
 //   { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
 // ]
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
+  props: ['colums', 'url'],
   data: function data() {
-    console.log(this.url);
-    var dados = fetch(this.url).then(function (res) {
+    var _this = this;
+
+    var colunas = [];
+    var coluna = {};
+    var namedata = Object.keys(this.colums);
+    var namecolum = Object.values(this.colums);
+
+    for (var index = 0; index < namedata.length; index++) {
+      coluna['key'] = namedata[index];
+      coluna['label'] = namecolum[index];
+      coluna['sortable'] = true;
+      colunas.push(coluna);
+      coluna = {};
+    } // var rows = [];
+    // async function dados() {
+    //   await fetch(this.url)
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     return json;
+    //   })
+    // }
+    // var dados = dados ();
+
+
+    dados = fetch(this.url).then(function (res) {
       return res.json();
     }).then(function (json) {
-      var dad = [];
-      dad.push(Object.keys(json.data[0]));
-      console.log(dad);
-      return dad;
+      return _this.items.json;
     });
     return {
-      // items: this.items,
-      items: [{
-        key: 'name',
-        label: 'Person Full name',
-        sortable: true,
-        sortDirection: 'desc'
-      }, {
-        key: 'age',
-        label: 'Person age',
-        sortable: true,
-        'class': 'text-center'
-      }, {
-        key: 'isActive',
-        label: 'is Active'
-      }, {
-        key: 'actions',
-        label: 'Actions'
-      }],
-      // fields: this.fields,
-      fields: [{
-        isActive: true,
-        age: 40,
-        name: {
-          first: 'Dickerson',
-          last: 'Macdonald'
-        }
-      }, {
-        isActive: false,
-        age: 21,
-        name: {
-          first: 'Larsen',
-          last: 'Shaw'
-        }
-      }, {
-        isActive: false,
-        age: 9,
-        name: {
-          first: 'Mini',
-          last: 'Navarro'
-        },
-        _rowVariant: 'success'
-      }, {
-        isActive: false,
-        age: 89,
-        name: {
-          first: 'Geneva',
-          last: 'Wilson'
-        }
-      }, {
-        isActive: true,
-        age: 38,
-        name: {
-          first: 'Jami',
-          last: 'Carney'
-        }
-      }, {
-        isActive: false,
-        age: 27,
-        name: {
-          first: 'Essie',
-          last: 'Dunlap'
-        }
-      }, {
-        isActive: true,
-        age: 40,
-        name: {
-          first: 'Thor',
-          last: 'Macdonald'
-        }
-      }, {
-        isActive: true,
-        age: 87,
-        name: {
-          first: 'Larsen',
-          last: 'Shaw'
-        },
-        _cellVariants: {
-          age: 'danger',
-          isActive: 'warning'
-        }
-      }, {
-        isActive: false,
-        age: 26,
-        name: {
-          first: 'Mitzi',
-          last: 'Navarro'
-        }
-      }, {
-        isActive: false,
-        age: 22,
-        name: {
-          first: 'Genevieve',
-          last: 'Wilson'
-        }
-      }, {
-        isActive: true,
-        age: 38,
-        name: {
-          first: 'John',
-          last: 'Carney'
-        }
-      }, {
-        isActive: false,
-        age: 29,
-        name: {
-          first: 'Dick',
-          last: 'Dunlap'
-        }
-      }],
+      items: {},
+      // [
+      //   {id: 1, nome: 'Testando', lactose: 'S', gluten: 'N' },
+      //   {id: 2, nome: 'Testand2', lactose: 'N', gluten: 'N' },
+      //   {id: 3, nome: 'Testand3', lactose: 'N', gluten: 'N' },
+      //   {id: 4, nome: 'Testand4', lactose: 'S', gluten: 'N' },
+      // ],
+      // fields: [
+      //   { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
+      //   { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
+      //   { key: 'isActive', label: 'is Active' },
+      //   { key: 'actions', label: 'Actions' }
+      // ],
+      fields: colunas,
+      // axios
+      // .get(this.url)
+      // .then(response => {return response.data}),
       currentPage: 1,
       perPage: 5,
-      totalRows: this.itemsa.length,
+      totalRows: this.fields.length,
       pageOptions: [5, 10, 15],
       sortBy: null,
       sortDesc: false,
@@ -3652,7 +3574,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     sortOptions: function sortOptions() {
       // Create an options list from our fields
-      return this.fieldsa.filter(function (f) {
+      return this.fields.filter(function (f) {
         return f.sortable;
       }).map(function (f) {
         return {
@@ -103454,9 +103376,6 @@ var render = function() {
             key: "actions",
             fn: function(row) {
               return [
-                _vm._v(
-                  "\n      We use @click.stop here to prevent a 'row-clicked' event from also happening\n      "
-                ),
                 _c(
                   "b-button",
                   {
