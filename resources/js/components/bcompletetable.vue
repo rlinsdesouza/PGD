@@ -3,20 +3,20 @@
     <!-- User Interface controls -->
     <b-row>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Filter" class="mb-0">
+        <b-form-group horizontal label="Filtrar" class="mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-form-input v-model="filter" placeholder="Pesquisar..." />
             <b-input-group-append>
-              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+              <b-btn :disabled="!filter" @click="filter = ''">Limpar</b-btn>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Sort" class="mb-0">
+        <b-form-group horizontal label="Ordenar" class="mb-0">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
-              <option slot="first" :value="null">-- none --</option>
+              <option slot="first" :value="null">-- nenhum --</option>
             </b-form-select>
             <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
               <option :value="false">Asc</option>
@@ -37,7 +37,7 @@
         </b-form-group>
       </b-col>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Per page" class="mb-0">
+        <b-form-group horizontal label="Por pág" class="mb-0">
           <b-form-select :options="pageOptions" v-model="perPage" />
         </b-form-group>
       </b-col>
@@ -55,17 +55,19 @@
              :sort-desc.sync="sortDesc"
              :sort-direction="sortDirection"
              @filtered="onFiltered"
+             striped
     >
-      <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
-      <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
-      <template slot="actions" slot-scope="row">
-        <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
-          Info modal
-        </b-button>
+      <template slot="acoes" slot-scope="row">
         <b-button size="sm" @click.stop="row.toggleDetails">
-          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+          {{ row.detailsShowing ? 'Esconder' : 'Exibir' }} Detalhes
         </b-button>
+        <b-button size="sm" variant="warning">
+                Editar
+        </b-button>
+        <b-button size="sm" variant="danger">
+                Excluir
+        </b-button>
+
       </template>
       <template slot="row-details" slot-scope="row">
         <b-card>
@@ -92,34 +94,15 @@
 
 <script>
 
-// const items = [
-//   { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-//   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-//   {
-//     isActive: false,
-//     age: 9,
-//     name: { first: 'Mini', last: 'Navarro' },
-//     _rowVariant: 'success'
-//   },
-//   { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-//   { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-//   { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-//   { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-//   {
-//     isActive: true,
-//     age: 87,
-//     name: { first: 'Larsen', last: 'Shaw' },
-//     _cellVariants: { age: 'danger', isActive: 'warning' }
-//   },
-//   { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-//   { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-//   { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-//   { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-// ]
-
-
 export default {
   props: ['colums','url'],
+  mounted() {
+    fetch(this.url)
+      .then(res => res.json())
+      .then(json => {
+        this.items = json;
+    })
+  },
   data () {
     var colunas =[];
     var coluna = {};
@@ -129,49 +112,16 @@ export default {
       coluna['key'] = namedata[index];
       coluna['label'] = namecolum[index];
       coluna['sortable'] = true;
+      // coluna['_showDetails'] = true;
       colunas.push(coluna);
       coluna ={};
     }
-
-
-    // var rows = [];
-    // async function dados() {
-    //   await fetch(this.url)
-    //   .then(res => res.json())
-    //   .then(json => {
-    //     return json;
-    //   })
-    // }
-  
-    // var dados = dados ();
-    dados = fetch(this.url)
-      .then(res => res.json())
-      .then(json => {
-        return this.items.json;
-    })
-
     return {
-      items: {},
-      // [
-      //   {id: 1, nome: 'Testando', lactose: 'S', gluten: 'N' },
-      //   {id: 2, nome: 'Testand2', lactose: 'N', gluten: 'N' },
-      //   {id: 3, nome: 'Testand3', lactose: 'N', gluten: 'N' },
-      //   {id: 4, nome: 'Testand4', lactose: 'S', gluten: 'N' },
-      
-      // ],
-      // fields: [
-      //   { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-      //   { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
-      //   { key: 'isActive', label: 'is Active' },
-      //   { key: 'actions', label: 'Actions' }
-      // ],
+      items: [],
       fields: colunas, 
-      // axios
-      // .get(this.url)
-      // .then(response => {return response.data}),
       currentPage: 1,
       perPage: 5,
-      totalRows: this.fields.length,
+      totalRows: 0,
       pageOptions: [ 5, 10, 15 ],
       sortBy: null,
       sortDesc: false,
