@@ -19,4 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/insumos/cadastro', 'InsumoController@forminsumo');
+Route::post('/insumos/salvar', 'InsumoController@salvarinsumo');
+
 Route::get('/insumos/listar','InsumoController@listarinsumos');

@@ -18,54 +18,6 @@
                         <div class="ui container">
                             <div id="conteudo" class="ui basic segment">
                                 <h3 class="ui header">List of Users</h3>
-                             
-                                {{-- <table-component
-                                    :columns = "[
-                                    {
-                                        title:'id',
-                                    },
-                                    {
-                                        title:'name',
-                                        visible: true,
-                                        editable: true,
-                                        filterable: false
-                                    },
-                                    {
-                                        title:'age',
-                                        visible: true,
-                                        editable: true,
-                                    },
-                                    {
-                                        title:'country',
-                                        visible: true,
-                                        editable: true,
-                                        sortable: false
-                                    }
-                                ]"
-                                :values = "[
-                                    {
-                                        'id': 1,
-                                        'name': 'John',
-                                        'country': 'UK',
-                                        'age': 25,
-                                    },
-                                    {
-                                        'id': 2,
-                                        'name': 'Mary',
-                                        'country': 'France',
-                                        'age': 30,
-                                    },
-                                    {
-                                        'id': 3,
-                                        'name': 'Ana',
-                                        'country': 'Portugal',
-                                        'age': 20,
-                                    }
-                                ]"
-                    
-                                >
-                                </table-component> --}}
-                                {{-- <table-component urlfetch='http://localhost/PGD/public/insumos/listar'></table-component> --}}
                                 <bcomplete-table 
                                 :colums = "{id:'Código', nome:'Nome do insumo', lactose:'Possui lactose?', gluten: 'Possui glúten?', acoes: 'Ações'}"
                                 url='http://localhost/PGD/public/insumos/listar'></bcomplete-table>

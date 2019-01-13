@@ -32,7 +32,7 @@ Vue.use(ElementUI, { locale });
 
 // Vue.component('insumos-component', require('./components/InsumosComponent.vue').default);
 Vue.component('bcomplete-table', require('./components/bcompletetable').default);
-// Vue.component('table-component', require('./components/tablecomponent').default);
+Vue.component('modal-exclusao', require('./components/modalexclusao').default);
 
 
 
