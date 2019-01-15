@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     
-
+                <h1>{{ url('/teste', []) }}</h1>
  
                 </div>
             </div>

@@ -3,16 +3,16 @@
 @section('content')
 
 <div class="container">
-    <h1>Cadastro de Insumo</h1>
-    <a href={{ url('/insumos/listar', []) }}>Listagem de insumos</a>        
-    <form action={{ url('/insumos/salvar', []) }} method="POST">
+    <h1>Cadastro de Prato</h1>
+    <a href={{ url('/pratos/listar', []) }}>Listagem de insumos</a>        
+    <form action={{ url('/pratos/salvar', []) }} method="POST">
         @csrf
         <div class="form-group">
-            <label>Nome insumo</label>
+            <label>Nome do prato</label>
             @if (isset($insumo->lactose))
-                <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do insumo" value={{$insumo->nome}}>
+                <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato" value={{$insumo->nome}}>
             @else
-                <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do insumo">
+                <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato">
             @endif
             <div class="custom-control custom-checkbox">
                 @if (isset($insumo->lactose) && $insumo->lactose==='S')
@@ -30,6 +30,9 @@
                 @endif
                 <label class="custom-control-label" for="gluten">Possui glúten?</label>
             </div>
+
+
+
             <button type="submit" class="btn btn-primary">Salvar/Editar</button>
             
         </div>

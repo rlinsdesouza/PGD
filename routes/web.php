@@ -23,7 +23,11 @@ Route::get('/insumos/cadastro', 'InsumoController@forminsumo');
 Route::get('/insumos/editar/{id}','InsumoController@forminsumo');
 Route::post('/insumos/salvar', 'InsumoController@salvarinsumo');
 Route::post('/insumos/excluir', 'InsumoController@excluir');
-
 Route::get('/insumos/listar','InsumoController@listagem');
 Route::get('/insumos/api/listar','InsumoController@listarinsumos');
+
+Route::get('/pratos/cadastro', 'PratoController@cadastro');
+
+
+
 

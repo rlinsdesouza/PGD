@@ -42,7 +42,6 @@ class InsumoController extends Controller
         }
 
         $insumo = $insumo->save();
-        // $insumo = $insumo->create($request->all());
         $request->session()->flash('status','Insumo cadastrado/atualizado com sucesso!');
         return back();
     }
@@ -51,6 +50,7 @@ class InsumoController extends Controller
         $insumo = Insumo::find($request->id);
         $insumo->delete();
         $request->session()->flash('status','Insumo deletado com sucesso!');
+        return back();
     }
     
     public function listagem() {
