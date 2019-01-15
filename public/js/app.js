@@ -3483,8 +3483,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['colums', 'url'],
   mounted: function mounted() {
@@ -3505,8 +3503,7 @@ __webpack_require__.r(__webpack_exports__);
     for (var index = 0; index < namedata.length; index++) {
       coluna['key'] = namedata[index];
       coluna['label'] = namecolum[index];
-      coluna['sortable'] = true; // coluna['_showDetails'] = true;
-
+      coluna['sortable'] = true;
       colunas.push(coluna);
       coluna = {};
     }
@@ -3525,7 +3522,8 @@ __webpack_require__.r(__webpack_exports__);
       modalInfo: {
         title: '',
         content: ''
-      }
+      },
+      model: this.model
     };
   },
   computed: {
@@ -3555,6 +3553,10 @@ __webpack_require__.r(__webpack_exports__);
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
+    },
+    viewProfile: function viewProfile(id) {
+      var urleditar = "editar/" + id;
+      window.location.replace(urleditar);
     }
   }
 });
@@ -103340,13 +103342,18 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("b-button", { attrs: { size: "sm", variant: "warning" } }, [
-                  _vm._v("\n              Editar\n      ")
-                ]),
-                _vm._v(" "),
-                _c("b-button", { attrs: { size: "sm", variant: "danger" } }, [
-                  _vm._v("\n              Excluir\n      ")
-                ])
+                _c(
+                  "b-button",
+                  {
+                    attrs: { size: "sm", variant: "warning" },
+                    on: {
+                      click: function($event) {
+                        _vm.viewProfile(row.item.id)
+                      }
+                    }
+                  },
+                  [_vm._v("\n              Editar\n      ")]
+                )
               ]
             }
           },

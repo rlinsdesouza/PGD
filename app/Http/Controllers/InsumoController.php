@@ -3,7 +3,6 @@
 namespace PGD\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use PGD\Insumo;
 
 
@@ -18,7 +17,8 @@ class InsumoController extends Controller
     public function forminsumo($id = 0) {
         if($id!=0) {
             $insumo = Insumo::find($id);
-            return view ('pages/insumos',['insumo'=> $insumo]);
+
+            return view ('pages/forminsumo',['insumo'=> $insumo]);
         }
         return view ('pages/forminsumo');
     }
@@ -46,14 +46,18 @@ class InsumoController extends Controller
         $request->session()->flash('status','Insumo cadastrado/atualizado com sucesso!');
         return back();
     }
+
+    public function excluir (Request $request) {
+        $insumo = Insumo::find($request->id);
+        $insumo->delete();
+        $request->session()->flash('status','Insumo deletado com sucesso!');
+    }
     
+    public function listagem() {
+        return view('pages/listinsumo');
+    }
+
     public function listarinsumos() {
-        // return DB::table('insumos')->get();        
-        // return DB::table('insumos')->paginate(15);
         return Insumo::all();
-        // return response()->json(['data'=>Insumo::all()]);
-        // return response()->json(['data'=>DB::table('insumos')->get()]); 
-
-
     }
 }

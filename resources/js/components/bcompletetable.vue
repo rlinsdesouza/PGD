@@ -61,12 +61,10 @@
         <b-button size="sm" @click.stop="row.toggleDetails">
           {{ row.detailsShowing ? 'Esconder' : 'Exibir' }} Detalhes
         </b-button>
-        <b-button size="sm" variant="warning">
+        <b-button size="sm" variant="warning" @click="viewProfile(row.item.id)">
                 Editar
         </b-button>
-        <b-button size="sm" variant="danger">
-                Excluir
-        </b-button>
+        <!-- <a class="btn btn-warning" :href="model" role="button">Editar</a> -->
 
       </template>
       <template slot="row-details" slot-scope="row">
@@ -112,7 +110,6 @@ export default {
       coluna['key'] = namedata[index];
       coluna['label'] = namecolum[index];
       coluna['sortable'] = true;
-      // coluna['_showDetails'] = true;
       colunas.push(coluna);
       coluna ={};
     }
@@ -127,7 +124,8 @@ export default {
       sortDesc: false,
       sortDirection: 'asc',
       filter: null,
-      modalInfo: { title: '', content: '' }
+      modalInfo: { title: '', content: '' },
+      model: this.model,
     }
   },
   computed: {
@@ -152,6 +150,10 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    viewProfile: function(id) {
+      var urleditar = "editar/"+id;
+      window.location.replace(urleditar);
     },
   },
 }
