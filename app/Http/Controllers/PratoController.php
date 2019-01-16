@@ -15,7 +15,7 @@ class PratoController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages/listprato');
     }
 
     /**
@@ -37,7 +37,7 @@ class PratoController extends Controller
     public function store(Request $request)
     {
         if (!$request->id) {
-            $prato = new Prato ();
+            $prato = new Prato();
         }else {
             $prato = Prato::find($request->id);
         }
@@ -54,13 +54,11 @@ class PratoController extends Controller
         }
         $prato->receita = $request->receita;
         $prato->dificuldade = 0;
+        $prato->tempoProduzir = 0;
+        $prato->save();
         if($request->addinsumo !== 'Escolha') {
-            $insumo->pratos()->attach(explode ( '/' , $request->addinsumo)[1]);
-            $prato->insumos()->attach(explode ( '/' , $request->addinsumo)[1]);
+            $prato->insumos()->sync(explode ( '/' , $request->addinsumo)[1],false);
         }
-
-        $prato = $prato->save();
-        $insumo = $insumo->save();
         $request->session()->flash('status','Prato cadastrado/atualizado com sucesso!');
         return back();
     }
@@ -71,10 +69,15 @@ class PratoController extends Controller
      * @param  \PGD\Prato  $prato
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id=0)
     {
         $insumos = Insumo::all();
-        return view ('pages/formprato', compact('insumos'));
+        if($id!=0) {
+            $prato = Prato::find($id);
+
+            return view ('pages/formprato',['insumos'=> $insumos,'prato'=>$prato]);
+        }
+        return view ('pages/formprato',['insumos'=>$insumos]);
     }
 
     /**
@@ -111,6 +114,6 @@ class PratoController extends Controller
         //
     }
     public function listagem() {
-        return view('pages/listprato');
+        return Prato::all();
     }
 }

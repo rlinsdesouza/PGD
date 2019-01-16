@@ -10,6 +10,7 @@
         <div class="form-group">
             <label>Nome insumo</label>
             @if (isset($insumo->lactose))
+                <input type="hidden" class="form-control-plaintext " name="id" value={{$insumo->id}} disable>
                 <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do insumo" value={{$insumo->nome}}>
             @else
                 <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do insumo">

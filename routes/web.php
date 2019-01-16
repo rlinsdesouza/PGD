@@ -28,8 +28,10 @@ Route::get('/insumos/api/listar','InsumoController@listarinsumos');
 
 Route::get('/pratos/cadastro', 'PratoController@show');
 Route::post('/pratos/salvar', 'PratoController@store');
-Route::get('/insumos/listar','PratoController@listagem');
-Route::get('/pratos/api/listar','PratoController@index');
+Route::get('/pratos/listar','PratoController@index');
+Route::get('/pratos/api/listar','PratoController@listagem');
+Route::get('/pratos/editar/{id}','PratoController@show');
+
 
 
 

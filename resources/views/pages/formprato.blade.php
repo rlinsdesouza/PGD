@@ -9,13 +9,15 @@
         @csrf
         <div class="form-group">
             <label>Nome do prato</label>
-            @if (isset($insumo->lactose))
-                <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato" value={{$insumo->nome}}>
+            @if (isset($prato->lactose))
+                <p>{{$prato->nome}}</p>
+                <input type="hidden" class="form-control-plaintext " name="id" value={{$prato->id}} disable>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato" value={{$prato->nome}}>
             @else
-                <input type="tex" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato">
             @endif
             <div class="custom-control custom-checkbox">
-                @if (isset($insumo->lactose) && $insumo->lactose==='S')
+                @if (isset($prato->lactose) && $prato->lactose==='S')
                     <input type="checkbox" class="custom-control-input" id="lactose" name="lactose" checked>    
                 @else
                     <input type="checkbox" class="custom-control-input" id="lactose" name="lactose">
@@ -23,7 +25,7 @@
                 <label class="custom-control-label" for="lactose">Possui lactose?</label>
             </div>
             <div class="custom-control custom-checkbox">
-                @if (isset($insumo->gluten) && $insumo->gluten==='S')
+                @if (isset($prato->gluten) && $prato->gluten==='S')
                     <input type="checkbox" class="custom-control-input" id="gluten" name="gluten" checked> 
                 @else
                     <input type="checkbox" class="custom-control-input" id="gluten" name="gluten">
@@ -34,8 +36,8 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect2">Insumos para fazer o prato</label>
                     <select multiple class="form-control" id="exampleFormControlSelect2">
-                      @foreach ($insumos as $item)
-                            <option><input type="hidden" class="form-control-plaintext " name="id" value={{$prato->insumos->id}} disable>{{$prato->insumos->nome}}</option>  
+                      @foreach ($prato->insumos as $insumo)
+                      <option>{{$insumo->nome}}/{{$insumo->id}}</option>  
                       @endforeach
                     </select>
                 </div>    
@@ -43,7 +45,11 @@
 
             <div class="form-group">
                     <label for="exampleFormControlTextarea1">Receita para fazer o prato</label>
+                    @if (isset($prato))
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="receita">{{$prato->receita}}</textarea>                        
+                    @else
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="receita"></textarea>
+                    @endif
             </div>
 
             <p>

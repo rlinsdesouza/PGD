@@ -5,7 +5,7 @@ namespace PGD;
 use Illuminate\Database\Eloquent\Model;
 
 class Prato extends Model
-{
+{    
     public function insumos()
     {
         return $this->belongsToMany('PGD\Insumo');
