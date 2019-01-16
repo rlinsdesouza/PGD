@@ -26,7 +26,10 @@ Route::post('/insumos/excluir', 'InsumoController@excluir');
 Route::get('/insumos/listar','InsumoController@listagem');
 Route::get('/insumos/api/listar','InsumoController@listarinsumos');
 
-Route::get('/pratos/cadastro', 'PratoController@cadastro');
+Route::get('/pratos/cadastro', 'PratoController@show');
+Route::post('/pratos/salvar', 'PratoController@store');
+Route::get('/insumos/listar','PratoController@listagem');
+Route::get('/pratos/api/listar','PratoController@index');
 
 
 
