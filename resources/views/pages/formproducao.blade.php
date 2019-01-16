@@ -3,21 +3,23 @@
 @section('content')
 
 <div class="container">
-    <h1>Cadastro de Prato</h1>
-    <a href={{ url('/pratos/listar', []) }}>Listagem de pratos</a>        
-    <form action={{ url('/pratos/salvar', []) }} method="POST">
+    <h1>Cadastro de Produção</h1>
+    <a href={{ url('/producoes/listar', []) }}>Listagem de producoes</a>        
+    <form action={{ url('/producoes/salvar', []) }} method="POST">
         @csrf
         <div class="form-group">
-            <label>Nome do prato</label>
-            @if (isset($prato->lactose))
-                <input type="hidden" class="form-control-plaintext " name="id" value={{$prato->id}} disable>
-                <a href={{url('pratos/cadastro')}}>Cadastrar novo prato</a>            
-                <input type="text" value="{{$prato->nome}}" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato">
+            <label>Nome do producao</label>
+            @if (isset($producao->lactose))
+                <input type="hidden" class="form-control-plaintext " name="id" value={{$producao->id}} disable>
+                <a href={{url('producoes/cadastro')}}>Cadastrar novo producao</a>            
+                <input type="text" value="{{$producao->nome}}" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do producao">
             @else
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato">
+                <datepicker-component v-model="value2"
+                type="date"></datepicker-component>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do producao">
             @endif
             <div class="custom-control custom-checkbox">
-                @if (isset($prato->lactose) && $prato->lactose==='S')
+                @if (isset($producao->lactose) && $producao->lactose==='S')
                     <input type="checkbox" class="custom-control-input" id="lactose" name="lactose" checked>    
                 @else
                     <input type="checkbox" class="custom-control-input" id="lactose" name="lactose">
@@ -25,18 +27,18 @@
                 <label class="custom-control-label" for="lactose">Possui lactose?</label>
             </div>
             <div class="custom-control custom-checkbox">
-                @if (isset($prato->gluten) && $prato->gluten==='S')
+                @if (isset($producao->gluten) && $producao->gluten==='S')
                     <input type="checkbox" class="custom-control-input" id="gluten" name="gluten" checked> 
                 @else
                     <input type="checkbox" class="custom-control-input" id="gluten" name="gluten">
                 @endif
                 <label class="custom-control-label" for="gluten">Possui glúten?</label>
             </div>
-            @if (isset($prato))
+            @if (isset($producao))
                 <div class="form-group">
-                    <label for="exampleFormControlSelect2">Insumos para fazer o prato</label>
+                    <label for="exampleFormControlSelect2">Insumos para fazer o producao</label>
                     <select multiple class="form-control" id="exampleFormControlSelect2">
-                      @foreach ($prato->insumos as $insumo)
+                      @foreach ($producao->insumos as $insumo)
                       <option>{{$insumo->nome}}/{{$insumo->id}}</option>  
                       @endforeach
                     </select>
@@ -44,9 +46,9 @@
             @endif
 
             <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Receita para fazer o prato</label>
-                    @if (isset($prato))
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="receita">{{$prato->receita}}</textarea>                        
+                    <label for="exampleFormControlTextarea1">Receita para fazer o producao</label>
+                    @if (isset($producao))
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="receita">{{$producao->receita}}</textarea>                        
                     @else
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="receita"></textarea>
                     @endif
@@ -54,7 +56,7 @@
 
             <p>
                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                     Adicionar insumo ao prato
+                     Adicionar insumo ao producao
                 </button>
             </p>
             @if (isset($insumos))
@@ -74,11 +76,11 @@
             
         </div>
     </form>
-    @if (isset($prato))
-        <form action={{ url('/pratos/excluir', []) }} method="post">
+    @if (isset($producao))
+        <form action={{ url('/producoes/excluir', []) }} method="post">
             @csrf
         <!-- Button trigger modal -->
-            <input type="hidden" class="form-control-plaintext " name="id" value={{$prato->id}} disable>
+            <input type="hidden" class="form-control-plaintext " name="id" value={{$producao->id}} disable>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExclusao">
                 Excluir
             </button>   

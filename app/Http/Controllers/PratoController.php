@@ -109,9 +109,12 @@ class PratoController extends Controller
      * @param  \PGD\Prato  $prato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prato $prato)
+    public function destroy(Request $request)
     {
-        //
+        $prato = Prato::find($request->id);
+        $prato->delete();
+        $request->session()->flash('status','Prato deletado com sucesso!');
+        return back();
     }
     public function listagem() {
         return Prato::all();

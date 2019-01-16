@@ -34,6 +34,8 @@ Vue.use(ElementUI, { locale });
 Vue.component('bcomplete-table', require('./components/bcompletetable').default);
 Vue.component('modal-exclusao', require('./components/modalexclusao').default);
 Vue.component('transfer-component', require('./components/transfer').default);
+Vue.component('datepicker-component', require('./components/datepicker').default);
+
 
 
 
