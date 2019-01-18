@@ -10,12 +10,15 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
 window.BootstrapVue = require('bootstrap-vue');
+// window.ElementUI = require ('element-ui');
+
 window.Vue.use(window.VueResource);
 window.Vue.use(window.BootstrapVue);
+// window.Vue.use(window.ElementUI);
 
-import ElementUI from 'element-ui'
+import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/pt-br'
-
+import '../sass/element-styles-variables.scss'
 Vue.use(ElementUI, { locale });
 
 
@@ -30,11 +33,13 @@ Vue.use(ElementUI, { locale });
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// Vue.component('insumos-component', require('./components/InsumosComponent.vue').default);
 Vue.component('bcomplete-table', require('./components/bcompletetable').default);
 Vue.component('modal-exclusao', require('./components/modalexclusao').default);
+Vue.component('date-picker', require('./components/datepicker').default);
 Vue.component('transfer-component', require('./components/transfer').default);
-Vue.component('datepicker-component', require('./components/datepicker').default);
+
+
+
 
 
 

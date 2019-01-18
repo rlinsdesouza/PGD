@@ -3,6 +3,8 @@
 namespace PGD\Http\Controllers;
 
 use PGD\Producao;
+use PGD\Pessoa;
+use PGD\Prato;
 use Illuminate\Http\Request;
 
 class ProducaoController extends Controller
@@ -35,9 +37,23 @@ class ProducaoController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request->all());
+        if (!$request->id) {
+            $pratos = explode ( ',' , $request->transfer);
+            foreach ($pratos as $key => $prato) {
+                $producao = new Producao();
+                $producao->data = $request->datepicker;
+                $producao->prato()->associate(Prato::find($prato+1));
+                if($request->cozinheiro !== 'Escolha'){
+                    $producao->pessoa()->associate(Pessoa::find(explode ( '/' , $request->cozinheiro)[1]));
+                }
+                $producao->save();
+            }
+        }else {
+            $prato = Prato::find($request->id);
+        }
+        $request->session()->flash('status','Produções cadastrado/atualizado com sucesso!');
+        return back();
     }
-
     /**
      * Display the specified resource.
      *
@@ -46,13 +62,13 @@ class ProducaoController extends Controller
      */
     public function show($id = 0)
     {
-        // $insumos = Insumo::all();
+        $cozinheiros = Pessoa::all();
         if($id!=0) {
             $prato = Prato::find($id);
 
-            return view ('pages/formproducao',['insumos'=> $insumos,'prato'=>$prato]);
+            return view ('pages/formproducao',['cozinheiros'=> $cozinheiros,'prato'=>$prato]);
         }
-        return view ('pages/formproducao');
+        return view ('pages/formproducao',['cozinheiros'=>$cozinheiros]);
     }
 
     /**

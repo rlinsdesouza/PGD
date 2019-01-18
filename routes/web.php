@@ -26,14 +26,14 @@ Route::get('/insumos/api/listar','InsumoController@listarinsumos');
 Route::get('/pratos/cadastro', 'PratoController@show');
 Route::post('/pratos/salvar', 'PratoController@store');
 Route::get('/pratos/listar','PratoController@index');
-Route::get('/pratos/api/listar','PratoController@listagem');
+Route::get('/pratos/api/listar','PratoController@listarpratos');
 Route::get('/pratos/editar/{id}','PratoController@show');
 Route::post('/pratos/excluir', 'PratoController@destroy');
 
 Route::get('/producoes/cadastro', 'ProducaoController@show');
 Route::post('/producoes/salvar', 'ProducaoController@store');
 Route::get('/producoes/listar','ProducaoController@index');
-Route::get('/producoes/api/listar','ProducaoController@listagem');
+Route::get('/producoes/api/listar','ProducaoController@listarproducoes');
 Route::get('/producoes/editar/{id}','ProducaoController@show');
 Route::post('/producoes/excluir', 'ProducaoController@destroy');
 

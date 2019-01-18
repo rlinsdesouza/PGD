@@ -1,11 +1,10 @@
 <template>
   <div class="block">
-    <span class="demonstration">Selecione uma data</span>
     <el-date-picker
-      v-model="value2"
+      v-model="dataselecionada"
       type="date"
-      placeholder="Click em um dia"
-      :picker-options="pickerOptions1">
+      placeholder="Pick a day"
+      :picker-options="pickerOptions1" name="datepicker">
     </el-date-picker>
   </div>
 </template>
@@ -39,8 +38,7 @@
             }
           }]
         },
-        value1: '',
-        value2: '',
+        dataselecionada: '',
       };
     }
   };

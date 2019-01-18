@@ -116,7 +116,7 @@ class PratoController extends Controller
         $request->session()->flash('status','Prato deletado com sucesso!');
         return back();
     }
-    public function listagem() {
+    public function listarpratos() {
         return Prato::all();
     }
 }

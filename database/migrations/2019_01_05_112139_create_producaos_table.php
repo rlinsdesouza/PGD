@@ -17,9 +17,9 @@ class CreateProducaosTable extends Migration
             $table->increments('id');
             $table->string('data',10);
             $table->integer('prato_id')->unsigned();
-            $table->foreign('prato_id')->references('id')->on('pratos')->onDelete('cascade');
+            $table->foreign('prato_id')->references('id')->on('pratos');
             $table->integer('pessoa_id')->unsigned();
-            $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('cascade');
+            $table->foreign('pessoa_id')->references('id')->on('pessoas');
             $table->timestamps();
         });
     }
