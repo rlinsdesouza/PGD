@@ -38,19 +38,21 @@ class ProducaoController extends Controller
     public function store(Request $request)
     {
         if (!$request->id) {
-            $pratos = explode ( ',' , $request->transfer);
-            foreach ($pratos as $key => $prato) {
-                $producao = new Producao();
-                $producao->data = $request->datepicker;
-                $producao->prato()->associate(Prato::find($prato+1));
-                if($request->cozinheiro !== 'Escolha'){
-                    $producao->pessoa()->associate(Pessoa::find(explode ( '/' , $request->cozinheiro)[1]));
-                }
-                $producao->save();
+            $producao = new Producao();
+            $producao->data = $request->datepicker;
+            if($request->cozinheiro !== 'Escolha'){
+                $producao->pessoa()->associate(Pessoa::find(explode ( '/' , $request->cozinheiro)[1]));
             }
+            $producao->save();
         }else {
-            $prato = Prato::find($request->id);
+            $producao = Producao::find($request->id);
         }
+        $pratostransfer = explode ( ',' , $request->transfer);
+        $pratosid=[];
+        foreach ($pratostransfer as $key => $prato) {
+            array_push($pratosid,$prato+1);
+        }
+        $producao->prato()->sync($pratosid);
         $request->session()->flash('status','Produções cadastrado/atualizado com sucesso!');
         return back();
     }
@@ -62,12 +64,11 @@ class ProducaoController extends Controller
      */
     public function show($id = 0)
     {
-        $cozinheiros = Pessoa::all();
         if($id!=0) {
-            $prato = Prato::find($id);
-
-            return view ('pages/formproducao',['cozinheiros'=> $cozinheiros,'prato'=>$prato]);
+            $producao = Producao::find($id);
+            return view ('pages/formproducao',['producao'=>$producao]);
         }
+        $cozinheiros = Pessoa::all();
         return view ('pages/formproducao',['cozinheiros'=>$cozinheiros]);
     }
 
@@ -100,8 +101,23 @@ class ProducaoController extends Controller
      * @param  \PGD\Producao  $producao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producao $producao)
+    public function destroy(Request $request)
     {
-        //
+        $producao = Producao::find($request->id);
+        $producao->delete();
+        $request->session()->flash('status','Producao deletado com sucesso!');
+        return back();
+    }
+    
+    public function listarproducoes() {
+        $producoes = Producao::all();
+        foreach ($producoes as $key => $value) {
+            /*
+            https://www.codigofonte.com.br/codigos/criar-um-objeto-sem-escrever-uma-classe-no-php
+            */
+            $value->cozinheiro = Pessoa::find($value->pessoa_id)->nome;
+        }
+
+        return $producoes;
     }
 }

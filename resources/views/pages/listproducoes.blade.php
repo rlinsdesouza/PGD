@@ -8,8 +8,8 @@
             <h3 class="ui header">Lista de produções</h3>
             <a href={{url('producoes/cadastro')}}>Cadastrar nova produção</a>
             <bcomplete-table 
-            :colums = "{id:'Código', nome:'Nome do prato', lactose:'Possui lactose?', gluten: 'Possui glúten?', acoes: 'Ações'}"
-            url={{url('api/listar')}}></bcomplete-table>
+            :colums = "{id:'Código', data:'Data produção', pessoa_id: 'id Cozinheiro', cozinheiro:'Cozinheiro', acoes: 'Ações'}"
+            url={{url('producoes/api/listar')}}></bcomplete-table>
         </div>
         
     </div>

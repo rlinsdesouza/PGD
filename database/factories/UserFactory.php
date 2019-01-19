@@ -6,6 +6,7 @@ use PGD\Insumo;
 use PGD\Prato;
 use PGD\Producao;
 use PGD\Pessoa;
+use PGD\Produzido;
 use PGD\Avaliacao;
 
 /*
@@ -60,11 +61,17 @@ $factory->define(Prato::class, function (Faker $faker) {
 $factory->define(Producao::class, function (Faker $faker) {
     return [
         'data'=>'2018'.'-'.'12'.'-'.$faker->dayOfMonth,
-        // 'data'=>$faker->date($format = 'Y-m-d', $max = 'now', $min = '-1 month'),
-        'prato_id'=>Prato::all()->random()->id,
         'pessoa_id'=>Pessoa::all()->random()->id
     ];
 });
+
+$factory->define(Produzido::class, function (Faker $faker) {
+    return [
+        'prato_id'=>Prato::all()->random()->id,
+        'producao_id'=>Producao::all()->random()->id
+    ];
+});
+
 
 $factory->define(Avaliacao::class, function (Faker $faker) {
     return [
@@ -72,6 +79,6 @@ $factory->define(Avaliacao::class, function (Faker $faker) {
         'notaAparencia'=>$faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 10),
         'justificativa'=>$faker->paragraph,
         'pessoa_id'=>Pessoa::all()->random()->id,
-        'producao_id'=>Producao::all()->random()->id
+        'produzido_id'=>Produzido::all()->random()->id
     ];
 });

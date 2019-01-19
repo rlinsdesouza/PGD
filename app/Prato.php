@@ -12,6 +12,6 @@ class Prato extends Model
     }
     public function producaos()
     {
-        return $this->hasMany('PGD\Producao');
+        return $this->belongsToMany('PGD\Producao');
     }
 }

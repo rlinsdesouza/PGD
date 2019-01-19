@@ -15,6 +15,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::get('/insumos/cadastro', 'InsumoController@forminsumo');
 Route::get('/insumos/editar/{id}','InsumoController@forminsumo');

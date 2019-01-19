@@ -28,7 +28,7 @@
 
 <script>
   export default {
-    props: ['url'],
+    props: ['url','selecionados'],
     data() {
       return {
         data: [],
@@ -40,19 +40,21 @@
     },
     methods: {
       generateData () {
+        let dataselecionado =[];
+        for (let i = 0; i<this.selecionados.length; i++) {
+          dataselecionado.push(this.selecionados[i].id-1);
+        }
+        this.value = dataselecionado
+
         const dadosapi = axios.get(this.url).then (response=>{
-          console.log(response);
           const dataentry = [];
-        
           for (let i = 0; i<response.data.length; i++) {
             dataentry.push({
               key: i,
               label: response.data[i].nome,
             });
-          }
-          
+          }          
         this.data = dataentry
-        console.log(dataentry);
         });
       },
       handleChange(value, direction, movedKeys) {

@@ -6,6 +6,7 @@ use PGD\Insumo;
 use PGD\Prato;
 use PGD\Producao;
 use PGD\Pessoa;
+use PGD\Produzido;
 use PGD\Avaliacao;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +27,8 @@ class DatabaseSeeder extends Seeder
             $sliced = array_slice($ids,1,100);
             $prato->insumos()->attach($sliced);
         });
-        factory(Producao::class,200)->create();
-        factory(Avaliacao::class,50)->create();
+        factory(Producao::class,100)->create();
+        factory(Produzido::class,50)->create();
+        factory(Avaliacao::class,25)->create();
     }
 }

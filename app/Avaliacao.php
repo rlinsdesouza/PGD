@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Avaliacao extends Model
 {
-    public function producao()
+    public function produzido()
     {
-        return $this->belongsTo('PGD\Producao');
+        return $this->belongsTo('PGD\Produzido');
     }
     public function pessoa()
     {

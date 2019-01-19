@@ -16,7 +16,7 @@ class CreatePratosTable extends Migration
         Schema::create('pratos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome',100);
-            $table->text('receita');
+            $table->text('receita')->nullable();
             $table->integer('dificuldade');
             $table->integer('tempoProduzir');
             $table->enum('lactose',['S','N']);
