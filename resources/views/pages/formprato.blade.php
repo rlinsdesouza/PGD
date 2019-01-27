@@ -16,6 +16,41 @@
             @else
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Escreva o nome do prato">
             @endif
+            
+            <div class="form-check form-check-inline">
+                @if (isset($prato) && $prato->dificuldade==1)
+                <input class="form-check-input" type="radio" name="dificuldade" id="inlineRadio1" value="1" checked>
+                @else
+                <input class="form-check-input" type="radio" name="dificuldade" id="inlineRadio1" value="1">
+                @endif
+                <label class="form-check-label" for="inlineRadio1">Fácil</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @if (isset($prato) && $prato->dificuldade==2)
+                <input class="form-check-input" type="radio" name="dificuldade" id="inlineRadio2" value="2" checked>
+                @else
+                <input class="form-check-input" type="radio" name="dificuldade" id="inlineRadio2" value="2">
+                @endif
+                <label class="form-check-label" for="inlineRadio2">Médio</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @if (isset($prato) && $prato->dificuldade==3)
+                <input class="form-check-input" type="radio" name="dificuldade" id="inlineRadio3" value="3" checked>
+                @else
+                <input class="form-check-input" type="radio" name="dificuldade" id="inlineRadio3" value="3">
+                @endif
+                <label class="form-check-label" for="inlineRadio3">Difícil</label>
+            </div>
+
+            <div>
+                <label>Tempo para produzir (Em min)</label>
+                @if (isset($prato->tempoProduzir))
+                    <input type="text" class="form-control" placeholder="minutos" name=tempoProduzir value={{$prato->tempoProduzir}}>
+                @else
+                    <input type="text" class="form-control" placeholder="minutos" name=tempoProduzir>                
+                @endif        
+            </div>
+            
             <div class="custom-control custom-checkbox">
                 @if (isset($prato->lactose) && $prato->lactose==='S')
                     <input type="checkbox" class="custom-control-input" id="lactose" name="lactose" checked>    

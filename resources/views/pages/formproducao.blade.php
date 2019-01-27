@@ -10,9 +10,10 @@
         <div class="form-group">
             <label>Defina o cozinheiro</label>
             @if (isset($producao))
+                <a href={{url('producoes/cadastro')}}>Cadastrar nova produção</a>
                 <input class="form-control" type="text" name="cozinheiro" value="{{$producao->pessoa->nome}}" disabled>
             @else
-                @if (isset($cozinheiro))
+                @if (isset($cozinheiros))
                     <select class="form-control" name="cozinheiro">
                         <option>Escolha</option> 
                         @foreach ($cozinheiros as $cozinheiro)
@@ -26,7 +27,6 @@
             @if (isset($producao->data))
                 <input type="hidden" class="form-control-plaintext " name="id" value={{$producao->id}} disable>
                 <input class="form-control" type="date" name="data" value={{$producao->data}} disabled>
-                <a href={{url('producoes/cadastro')}}>Cadastrar novo produção</a>
             <transfer-component url={{ url('/pratos/api/listar') }} :selecionados="{{$producao->prato}}"></transfer-component>
 
             @else

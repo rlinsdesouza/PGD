@@ -62,7 +62,7 @@
           {{ row.detailsShowing ? 'Esconder' : 'Exibir' }} Detalhes
         </b-button>
         <b-button size="sm" variant="warning" @click="viewProfile(row.item.id)">
-                Editar
+                {{acao}}
         </b-button>
         <!-- <a class="btn btn-warning" :href="model" role="button">Editar</a> -->
 
@@ -93,7 +93,7 @@
 <script>
 
 export default {
-  props: ['colums','url'],
+  props: ['colums','url','acao'],
   mounted() {
     fetch(this.url)
       .then(res => res.json())
@@ -113,6 +113,9 @@ export default {
       colunas.push(coluna);
       coluna ={};
     }
+    coluna['key'] = 'acoes';
+    coluna['label'] = 'Ações'
+    colunas.push(coluna);
     return {
       items: [],
       fields: colunas, 
@@ -122,10 +125,11 @@ export default {
       pageOptions: [ 5, 10, 15 ],
       sortBy: null,
       sortDesc: false,
-      sortDirection: 'asc',
+      sortDirection: 'desc',
       filter: null,
       modalInfo: { title: '', content: '' },
       model: this.model,
+      acao: this.acao,
     }
   },
   computed: {
@@ -152,7 +156,7 @@ export default {
       this.currentPage = 1
     },
     viewProfile: function(id) {
-      var urleditar = "editar/"+id;
+      var urleditar = this.acao+"/"+id;
       window.location.replace(urleditar);
     },
   },

@@ -44,6 +44,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/producoes/cadastro') }}">Produções</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/produzidos/index') }}">Avaliações</a>
+                            </li>
                         @endauth
 
                     </ul>

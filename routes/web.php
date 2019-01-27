@@ -35,9 +35,24 @@ Route::post('/pratos/excluir', 'PratoController@destroy');
 Route::get('/producoes/cadastro', 'ProducaoController@show');
 Route::post('/producoes/salvar', 'ProducaoController@store');
 Route::get('/producoes/listar','ProducaoController@index');
+Route::get('/producoes/avaliar','ProducaoController@avaliarproducoes');
 Route::get('/producoes/api/listar','ProducaoController@listarproducoes');
 Route::get('/producoes/editar/{id}','ProducaoController@show');
 Route::post('/producoes/excluir', 'ProducaoController@destroy');
+
+Route::get('/avaliacoes/index', 'AvaliacaoController@index');
+Route::get('/avaliacoes/cadastro', 'AvaliacaoController@show');
+Route::post('/avaliacoes/salvar', 'AvaliacaoController@store');
+Route::get('/avaliacoes/listar','AvaliacaoController@index');
+Route::get('/avaliacoes/api/listar','AvaliacaoController@listarproducoes');
+Route::get('/avaliacoes/editar/{id}','AvaliacaoController@show');
+Route::post('/avaliacoes/excluir', 'AvaliacaoController@destroy');
+
+Route::get('/produzidos/index', 'ProduzidosController@index');
+Route::get('/produzidos/api/listardia/{dia}', 'ProduzidosController@listardia');
+Route::get('/produzidos/avaliar/{id}','ProduzidosController@show');
+Route::post('/produzidos/salvar', 'ProduzidosController@store');
+
 
 
 

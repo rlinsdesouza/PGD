@@ -41,7 +41,7 @@ class PratoController extends Controller
         }else {
             $prato = Prato::find($request->id);
         }
-        $prato->nome = $request->nome;
+        $prato->nome = strtoupper($request->nome);
         if(strcmp($request->lactose ,'on')==0) {
             $prato->lactose = 'S';
         }else {
@@ -53,8 +53,8 @@ class PratoController extends Controller
             $prato->gluten = 'N';
         }
         $prato->receita = $request->receita;
-        $prato->dificuldade = 0;
-        $prato->tempoProduzir = 0;
+        $prato->dificuldade = $request->dificuldade;
+        $prato->tempoProduzir = $request->tempoProduzir;
         $prato->save();
         if($request->addinsumo !== 'Escolha') {
             $prato->insumos()->sync(explode ( '/' , $request->addinsumo)[1],false);

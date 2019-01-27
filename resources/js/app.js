@@ -37,6 +37,8 @@ Vue.component('bcomplete-table', require('./components/bcompletetable').default)
 Vue.component('modal-exclusao', require('./components/modalexclusao').default);
 Vue.component('date-picker', require('./components/datepicker').default);
 Vue.component('transfer-component', require('./components/transfer').default);
+Vue.component('rate-component', require('./components/rate').default);
+
 
 
 

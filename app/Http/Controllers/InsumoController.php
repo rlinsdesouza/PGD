@@ -29,7 +29,7 @@ class InsumoController extends Controller
         }else {
             $insumo = Insumo::find($request->id);
         }
-        $insumo->nome = $request->nome;
+        $insumo->nome = strtoupper($request->nome);
         if(strcmp($request->lactose ,'on')==0) {
             $insumo->lactose = 'S';
         }else {

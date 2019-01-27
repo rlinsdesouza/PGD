@@ -15,7 +15,8 @@
                         </div>
                     @endif
                     
-                <h1>{{ url('/teste', []) }}</h1>
+                <h1>Bem-vindo ao PGD! </h1>
+                <h3>Programa de Gestão do Domani</h3>
  
                 </div>
             </div>
