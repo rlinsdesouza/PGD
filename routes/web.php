@@ -35,7 +35,8 @@ Route::post('/pratos/excluir', 'PratoController@destroy');
 Route::get('/producoes/cadastro', 'ProducaoController@show');
 Route::post('/producoes/salvar', 'ProducaoController@store');
 Route::get('/producoes/listar','ProducaoController@index');
-Route::get('/producoes/avaliar','ProducaoController@avaliarproducoes');
+Route::get('/producoes/avaliar','ProducaoController@avaliar');
+Route::get('/producoes/avaliar/{id}','ProducaoController@avaliarlist');
 Route::get('/producoes/api/listar','ProducaoController@listarproducoes');
 Route::get('/producoes/editar/{id}','ProducaoController@show');
 Route::post('/producoes/excluir', 'ProducaoController@destroy');
@@ -51,7 +52,7 @@ Route::post('/avaliacoes/excluir', 'AvaliacaoController@destroy');
 Route::get('/produzidos/index', 'ProduzidosController@index');
 Route::get('/produzidos/api/listardia/{dia}', 'ProduzidosController@listardia');
 Route::get('/produzidos/avaliar/{id}','ProduzidosController@show');
-Route::post('/produzidos/salvar', 'ProduzidosController@store');
+Route::post('/produzidos/avaliar', 'ProduzidosController@store');
 
 
 

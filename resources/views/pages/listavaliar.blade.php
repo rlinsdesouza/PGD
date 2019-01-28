@@ -11,7 +11,9 @@
 
             <bcomplete-table 
             :colums = "{id:'Código', data:'Data produção',prato: 'Prato', cozinheiro:'Cozinheiro'}"
-            url={{url('/produzidos/api/listardia',[$dia])}} acao='avaliar'></bcomplete-table>
+            url={{url('/produzidos/api/listardia',[$dia])}} acao='avaliar'>
+            </bcomplete-table>
+            
         </div>       
     </div>
 </div>    

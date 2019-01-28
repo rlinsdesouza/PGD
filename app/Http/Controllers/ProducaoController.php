@@ -120,4 +120,16 @@ class ProducaoController extends Controller
 
         return $producoes;
     }
+
+    public function avaliar() {
+        return view('pages/listproducoes',['avaliar'=>'sim']);
+    }
+    public function avaliarlist($id) {
+        $retorno = [];
+        $objeto = Producao::find($id);
+        $objeto->cozinheiro=$objeto->pessoa->nome;
+        // array_push($retorno,$objeto);
+        
+        return $objeto;
+    }
 }
