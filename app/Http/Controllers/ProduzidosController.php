@@ -19,7 +19,7 @@ class ProduzidosController extends Controller
     public function index($dia=0)
     {
         if(!$dia) {
-            return view('pages/listavaliar',['dia'=>'index']);
+            return view('pages/listavaliar',['produzidos'=>$this->listardia('index')]);
         }
     }
 
@@ -113,7 +113,9 @@ class ProduzidosController extends Controller
     public function listardia($dia)
     {
         if($dia === 'index') {
-            $producoes = Producao::where('data',date('Y-m-d'))->get();
+            $producoes = Producao::where('data','2019-01-28')->get();
+            // $producoes = Producao::where('data',date('Y-m-d'))->get();
+
         }else{
             // $producoes = Producao::where('data',date('Y-m-d'))->get();
         }
