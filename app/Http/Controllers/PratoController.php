@@ -53,12 +53,19 @@ class PratoController extends Controller
             $prato->gluten = 'N';
         }
         $prato->receita = $request->receita;
-        $prato->dificuldade = $request->dificuldade;
+        if($prato->dificuldade) {
+            $prato->dificuldade = $request->dificuldade;
+        }else {
+            $prato->dificuldade = 1;
+        }
         $prato->tempoProduzir = $request->tempoProduzir;
         $prato->save();
-        if($request->addinsumo !== 'Escolha') {
-            $prato->insumos()->sync(explode ( '/' , $request->addinsumo)[1],false);
+        $insumostransfer = explode ( ',' , $request->transfer);
+        $insumosid=[];
+        foreach ($insumostransfer as $key => $insumo) {
+            array_push($insumosid,$insumo);
         }
+        $prato->insumos()->sync($insumosid);
         $request->session()->flash('status','Prato cadastrado/atualizado com sucesso!');
         return back();
     }

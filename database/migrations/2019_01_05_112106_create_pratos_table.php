@@ -18,7 +18,7 @@ class CreatePratosTable extends Migration
             $table->string('nome',100);
             $table->text('receita')->nullable();
             $table->integer('dificuldade');
-            $table->integer('tempoProduzir');
+            $table->integer('tempoProduzir')->nullable();
             $table->enum('lactose',['S','N']);
             $table->enum('gluten',['S','N']);
             $table->timestamps();

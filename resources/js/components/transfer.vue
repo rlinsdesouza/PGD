@@ -6,7 +6,7 @@
       filterable
       :left-default-checked="[2, 3]"
       :right-default-checked="[1]"
-      :titles="['Todos os pratos', 'Pratos produzidos']"
+      :titles="['Todos os itens', 'Itens que compõem']"
       :button-texts="['Remover', 'Adicionar']"
       :format="{
         noChecked: '${total}',
@@ -42,7 +42,7 @@
       generateData () {
         let dataselecionado =[];
         for (let i = 0; i<this.selecionados.length; i++) {
-          dataselecionado.push(this.selecionados[i].id-1);
+          dataselecionado.push(this.selecionados[i].id);
         }
         this.value = dataselecionado
 
@@ -50,7 +50,7 @@
           const dataentry = [];
           for (let i = 0; i<response.data.length; i++) {
             dataentry.push({
-              key: i,
+              key: response.data[i].id,
               label: response.data[i].nome,
             });
           }          

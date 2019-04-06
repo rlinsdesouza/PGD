@@ -50,7 +50,7 @@ class ProducaoController extends Controller
         $pratostransfer = explode ( ',' , $request->transfer);
         $pratosid=[];
         foreach ($pratostransfer as $key => $prato) {
-            array_push($pratosid,$prato+1);
+            array_push($pratosid,$prato);
         }
         $producao->prato()->sync($pratosid);
         $request->session()->flash('status','Produções cadastrado/atualizado com sucesso!');

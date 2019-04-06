@@ -16,11 +16,10 @@ class ProduzidosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($dia=0)
+    public function index(Request $request)
     {
-        if(!$dia) {
-            return view('pages/listavaliar',['produzidos'=>$this->listardia('index')]);
-        }
+        // $this->listardia($request);
+        return view('pages/listavaliar',['produzidos'=>$this->listardia($request)]);
     }
 
     /**
@@ -57,7 +56,7 @@ class ProduzidosController extends Controller
         //     array_push($pratosid,$prato+1);
         // }
         // $producao->prato()->sync($pratosid);
-        // $request->session()->flash('status','Produções cadastrado/atualizado com sucesso!');
+        // $request->session()->flash('status','Produções avaliadas/atualizadas com sucesso!');
         // return back();
     }
 
@@ -67,14 +66,10 @@ class ProduzidosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $dia)
     {
-        $produzidos = [];
-        $produzido = Produzido::find($id);
-        $produzido->prato = Prato::find($produzido->prato_id);
-        $produzido->producao= Producao::find($produzido->producao_id);
-        array_push($produzidos,$produzido);
-        return view('pages/formavaliacao',['produzidos'=>$produzidos]);
+        // $this->listardia($request,$dia);        
+        return view('pages/listavaliar',['produzidos'=>$this->listardia($request, $dia)]);
     }
 
     /**
@@ -110,26 +105,39 @@ class ProduzidosController extends Controller
     {
         //
     }
-    public function listardia($dia)
+    public function listardia($request, $dia=0)
     {
-        if($dia === 'index') {
-            $producoes = Producao::where('data','2019-01-28')->get();
-            // $producoes = Producao::where('data',date('Y-m-d'))->get();
+
+        if(!$request->data && $dia==0) {
+            $producoes = Producao::where('data','2019-04-05')->get();
 
         }else{
-            // $producoes = Producao::where('data',date('Y-m-d'))->get();
+            $producoes = Producao::where('data',$dia)->get();
         }
         $retorno = [];
+        
         $objeto = (object) array(); 
         foreach ($producoes as $key => $producao) {
-            foreach ($producao->prato as $prato) {
-               $objeto->id = Produzido::where([['producao_id',$producao->id],['prato_id',$prato->id]])->first()->id;
-               $objeto->data = $producao->data;
-               $objeto->prato = $prato->nome;
-               $objeto->cozinheiro=$producao->pessoa->nome;
-               array_push($retorno,$objeto);
-               $objeto = (object) array();       
-            }
+            $produzidos = Produzido::where('producao_id',$producao->id)->get();
+            foreach ($produzidos as $key => $produzido) {
+                $teste = 1;
+                if($produzido->avaliacaos) {
+                    foreach($produzido->avaliacaos as $key => $avaliacao){
+
+                        if($avaliacao->pessoa->id == $request->user()->id) {
+                            $teste = 0;
+                        }
+                    }
+                }
+                if($teste) {
+                    $objeto->id = $produzido->id;
+                    $objeto->data = $producao->data;
+                    $objeto->prato = Prato::find($produzido->prato_id)->nome;
+                    $objeto->cozinheiro=$producao->pessoa->nome;
+                    array_push($retorno,$objeto);
+                }
+                $objeto = (object) array();
+            } 
         }
         return $retorno;
     }

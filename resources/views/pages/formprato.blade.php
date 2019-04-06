@@ -67,16 +67,15 @@
                 @endif
                 <label class="custom-control-label" for="gluten">Possui glúten?</label>
             </div>
+            <div class="form-group">
+                <h2 for="exampleFormControlSelect2">Insumos para fazer o prato</h2>
             @if (isset($prato))
-                <div class="form-group">
-                    <label for="exampleFormControlSelect2">Insumos para fazer o prato</label>
-                    <select multiple class="form-control" id="exampleFormControlSelect2">
-                      @foreach ($prato->insumos as $insumo)
-                      <option>{{$insumo->nome}}/{{$insumo->id}}</option>  
-                      @endforeach
-                    </select>
-                </div>    
+                <transfer-component url={{ url('/insumos/api/listar') }} :selecionados="{{$prato->insumos}}"></transfer-component>
+            
+            @else
+                <transfer-component url={{ url('/insumos/api/listar') }} :selecionados="[]"></transfer-component>
             @endif
+            </div>    
 
             <div class="form-group">
                     <label for="exampleFormControlTextarea1">Receita para fazer o prato</label>
@@ -86,24 +85,6 @@
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="receita"></textarea>
                     @endif
             </div>
-
-            <p>
-                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                     Adicionar insumo ao prato
-                </button>
-            </p>
-            @if (isset($insumos))
-                <div class="collapse" id="collapseExample">
-                    <select class="form-control" name="addinsumo">
-                            <option>Escolha</option> 
-                            @foreach ($insumos as $insumo)
-                                <option>{{$insumo->nome}}/{{$insumo->id}}</option> 
-                        @endforeach
-                    </select>    
-                </div>  
-            @endif
-              
-
 
             <button type="submit" class="btn btn-primary">Salvar/Editar</button>
             

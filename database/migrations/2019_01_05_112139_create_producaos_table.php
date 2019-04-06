@@ -16,7 +16,7 @@ class CreateProducaosTable extends Migration
         Schema::create('producaos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('data',10);
-            $table->integer('pessoa_id')->unsigned();
+            $table->integer('pessoa_id')->unsigned()->nullable();
             $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('cascade');
             $table->timestamps();
         });

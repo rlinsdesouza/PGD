@@ -5,7 +5,9 @@ namespace PGD\Http\Controllers;
 use PGD\Avaliacao;
 use PGD\Produzido;
 use PGD\Producao;
+use PGD\Prato;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AvaliacaoController extends Controller
 {
@@ -39,7 +41,20 @@ class AvaliacaoController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request->all());
+        if (!$request->id) {
+            $avaliacao = new Avaliacao();
+        }else {
+            $avaliacao = Avaliacao::find($request->id);
+        }
+        $avaliacao->notaSabor = $request->notaSabor;
+        $avaliacao->notaAparencia = $request->notaAparencia;
+        $avaliacao->justificativa = $request->justificativa;
+        $avaliacao->pessoa_id = $request->user()->id;
+        $avaliacao->produzido_id = $request->produzidoid;
+        $avaliacao->save();
+
+        $request->session()->flash('status','Avaliacao cadastrada/atualizada com sucesso!');
+        return Redirect::to('/produzidos/avaliar/'.$request->data);
     }
 
     /**
@@ -48,9 +63,12 @@ class AvaliacaoController extends Controller
      * @param  \PGD\Avaliacao  $avaliacao
      * @return \Illuminate\Http\Response
      */
-    public function show($id=0)
+    public function show(Request $request, $id)
     {
-        return view('pages/formavaliacao');
+        $produzido = Produzido::find($id);
+        $producao = Producao::find($produzido->producao_id);
+        $prato = Prato::find($produzido->prato_id);
+        return view('pages/formavaliacao',compact(['produzido','producao','prato']));
     }
 
     /**

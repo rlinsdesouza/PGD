@@ -42,7 +42,7 @@ Route::get('/producoes/editar/{id}','ProducaoController@show');
 Route::post('/producoes/excluir', 'ProducaoController@destroy');
 
 Route::get('/avaliacoes/index', 'AvaliacaoController@index');
-Route::get('/avaliacoes/cadastro', 'AvaliacaoController@show');
+Route::get('/avaliacoes/cadastro/{id}', 'AvaliacaoController@show');
 Route::post('/avaliacoes/salvar', 'AvaliacaoController@store');
 Route::get('/avaliacoes/listar','AvaliacaoController@index');
 Route::get('/avaliacoes/api/listar','AvaliacaoController@listarproducoes');
@@ -51,7 +51,7 @@ Route::post('/avaliacoes/excluir', 'AvaliacaoController@destroy');
 
 Route::get('/produzidos/index', 'ProduzidosController@index');
 Route::get('/produzidos/api/listardia/{dia}', 'ProduzidosController@listardia');
-Route::get('/produzidos/avaliar/{id}','ProduzidosController@show');
+Route::get('/produzidos/avaliar/{data}','ProduzidosController@show');
 Route::post('/produzidos/avaliar', 'ProduzidosController@store');
 
 
