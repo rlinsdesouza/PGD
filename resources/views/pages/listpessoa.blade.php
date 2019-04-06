@@ -9,7 +9,7 @@
             <a href="{{ url('/pessoas/cadastro') }}">Cadastrar nova pessoa</a>
             <bcomplete-table 
             :colums = "{id:'Código', nome:'Nome da Pessoa'}"
-            url='http://localhost/PGD/public/pessoas/api/listar' acao=editar></bcomplete-table>
+            url='{{ url('/pessoas/api/listar') }}' acao=editar></bcomplete-table>
         </div>
         
     </div>

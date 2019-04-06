@@ -9,7 +9,7 @@
             <a href="./cadastro">Cadastrar novo insumo</a>
             <bcomplete-table 
             :colums = "{id:'Código', nome:'Nome do insumo', lactose:'Possui lactose?', gluten: 'Possui glúten?'}"
-            url='http://localhost/PGD/public/insumos/api/listar' acao=editar></bcomplete-table>
+            url='{{ url('/insumos/api/listar') }}' acao=editar></bcomplete-table>
         </div>
         
     </div>
