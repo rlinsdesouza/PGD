@@ -17,6 +17,12 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/pessoas/cadastro', 'PessoaController@formpessoa');
+Route::get('/pessoas/editar/{id}','PessoaController@formpessoa');
+Route::post('/pessoas/salvar', 'PessoaController@salvarpessoa');
+Route::post('/pessoas/excluir', 'PessoaController@excluir');
+Route::get('/pessoas/listar','PessoaController@listagem');
+Route::get('/pessoas/api/listar','PessoaController@listarpessoas');
 
 Route::get('/insumos/cadastro', 'InsumoController@forminsumo');
 Route::get('/insumos/editar/{id}','InsumoController@forminsumo');
