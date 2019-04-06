@@ -66,9 +66,9 @@ class ProduzidosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $dia)
+    public function show(Request $request)
     {
-        // $this->listardia($request,$dia);        
+        $dia = $request->dia;        
         return view('pages/listavaliar',['produzidos'=>$this->listardia($request, $dia)]);
     }
 
@@ -109,7 +109,7 @@ class ProduzidosController extends Controller
     {
 
         if(!$request->data && $dia==0) {
-            $producoes = Producao::where('data','2019-04-05')->get();
+            $producoes = Producao::where('data',date('Y-m-d'))->get();
 
         }else{
             $producoes = Producao::where('data',$dia)->get();

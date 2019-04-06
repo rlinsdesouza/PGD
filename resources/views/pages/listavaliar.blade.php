@@ -5,10 +5,11 @@
 <div class="container">
 
     <div class="container">
-        <form>
-                <div class="form-group">
+        <form action={{ url('/produzidos/avaliar') }} method="GET">
+            <div class="form-group">
                 <label for="formSearchDate">Filtra por Data da produção:</label>
-                <input type="date" class="form-control" id="date" placeholder="Selecionar a data">
+                <input type="date" class="form-control" name="dia" placeholder="Selecionar a data">
+                <input class="btn btn-primary" type="submit" value="Filtrar data">
             </div>
         </form>    
     </div>
