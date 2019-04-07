@@ -17,7 +17,7 @@ class CreateAvaliacaosTable extends Migration
             $table->increments('id');
             $table->double('notaSabor',8,2);
             $table->double('notaAparencia',8,2);
-            $table->mediumText('justificativa');
+            $table->mediumText('justificativa')->nullable();
             $table->integer('pessoa_id')->unsigned();
             $table->foreign('pessoa_id')
             ->references('id')->on('pessoas')->onDelete('cascade');

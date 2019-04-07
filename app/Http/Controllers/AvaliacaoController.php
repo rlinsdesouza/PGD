@@ -54,7 +54,7 @@ class AvaliacaoController extends Controller
         $avaliacao->save();
 
         $request->session()->flash('status','Avaliacao cadastrada/atualizada com sucesso!');
-        return Redirect::to('/produzidos/avaliar/'.$request->data);
+        return Redirect::to('/produzidos/listavaliar/'.$request->data);
     }
 
     /**

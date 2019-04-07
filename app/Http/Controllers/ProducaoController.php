@@ -6,6 +6,7 @@ use PGD\Producao;
 use PGD\Pessoa;
 use PGD\Prato;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProducaoController extends Controller
 {
@@ -37,6 +38,14 @@ class ProducaoController extends Controller
      */
     public function store(Request $request)
     {
+        //validate the data
+        // $request->validate([
+        //     'data'=>'required|date',
+        //     'cozinheiro'=>'required|notIn:Escolha',
+        //     'transfer'=>'required'
+        // ]);
+
+
         if (!$request->id) {
             $producao = new Producao();
             $producao->data = $request->datepicker;

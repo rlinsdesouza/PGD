@@ -58,6 +58,7 @@ Route::post('/avaliacoes/excluir', 'AvaliacaoController@destroy');
 Route::get('/produzidos/index', 'ProduzidosController@index');
 Route::get('/produzidos/api/listardia/{dia}', 'ProduzidosController@listardia');
 Route::get('/produzidos/avaliar','ProduzidosController@show');
+Route::get('/produzidos/listavaliar/{dia}','ProduzidosController@show');
 Route::post('/produzidos/avaliar', 'ProduzidosController@store');
 
 
