@@ -66,12 +66,9 @@ class ProduzidosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $dia=0)
+    public function show(Request $request)
     {
-        if($dia=0) {
-            $dia = $request->dia;        
-        }
-        return view('pages/listavaliar',['produzidos'=>$this->listardia($request, $dia)]);
+        return view('pages/listavaliar',['produzidos'=>$this->listardia($request, $request->dia)]);
     }
 
     /**
