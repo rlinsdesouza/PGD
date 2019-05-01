@@ -6,6 +6,7 @@ use PGD\Avaliacao;
 use PGD\Produzido;
 use PGD\Producao;
 use PGD\Prato;
+use PGD\Pessoa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -104,4 +105,64 @@ class AvaliacaoController extends Controller
     {
         //
     }
+
+    public function notasProducoes (Request $request)
+    {
+        if($request->datainicial && $request->datafinal){
+            $notas=[];
+            $funcionarios = Pessoa::all();
+            foreach ($funcionarios as $key => $funcionario) {
+                $notafuncionario = new \stdClass();
+                $producoes = Producao::whereBetween('data',[$request->datainicial,$request->datafinal])
+                                    ->where('pessoa_id',$funcionario->id) 
+                                    ->get();
+                $producoesid = [];
+                if(count($producoes)>0){
+                    foreach ($producoes as $key => $producao) {
+                        array_push($producoesid,$producao->id);
+                    }
+                    $produzidos = Produzido::whereIn('producao_id',$producoesid)->get();
+                    $notafuncionario->nome = $funcionario->nome;
+                    $notafuncionario->nota = $this->calculaNotaProducoes($produzidos);
+                    $notafuncionario->produtividade = $this->calculaProdutividadeProducoes($produzidos); 
+                    array_push($notas,$notafuncionario);
+                }
+                
+            }      
+            return view ('pages/listnotas',['notas'=>$notas]);
+        }else{
+            return view('pages/listnotas');
+        }
+        
+    }
+
+    public function calculaNotaProducoes ($produzidos) {
+		$nota = 0.0;
+		$numerador=0.0;
+		$denominador=0.0;
+		
+        foreach ($produzidos as $key => $produzido) {
+            $avaliacoes = $produzido->avaliacaos;
+            if (count($avaliacoes)>0) {
+                foreach ($avaliacoes as $key => $avaliacao) {
+					$numerador = $numerador + (((($avaliacao->notaAparencia+$avaliacao->notaSabor)/2)*Prato::find($produzido->prato_id)->dificuldade));
+                    $denominador = $denominador + Prato::find($produzido->prato_id)->dificuldade;
+                }
+			}
+        }
+        if($denominador>0) {
+            $nota = $numerador/$denominador;
+        }
+		return $nota;
+	}
+	
+	public function calculaProdutividadeProducoes ($produzidos) {
+		$produtividade = 0;
+		
+		foreach ($produzidos as $key => $produzido) {
+			$produtividade += Prato::find($produzido->prato_id)->dificuldade;
+		}
+		
+		return $produtividade;
+	}
 }

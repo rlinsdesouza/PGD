@@ -44,6 +44,7 @@ Route::get('/producoes/listar','ProducaoController@index');
 Route::get('/producoes/avaliar','ProducaoController@avaliar');
 Route::get('/producoes/avaliar/{id}','ProducaoController@avaliarlist');
 Route::get('/producoes/api/listar','ProducaoController@listarproducoes');
+Route::get('/producoes/api/listar/{dia}','ProducaoController@listarproducoes');
 Route::get('/producoes/editar/{id}','ProducaoController@show');
 Route::post('/producoes/excluir', 'ProducaoController@destroy');
 
@@ -54,12 +55,15 @@ Route::get('/avaliacoes/listar','AvaliacaoController@index');
 Route::get('/avaliacoes/api/listar','AvaliacaoController@listarproducoes');
 Route::get('/avaliacoes/editar/{id}','AvaliacaoController@show');
 Route::post('/avaliacoes/excluir', 'AvaliacaoController@destroy');
+Route::get('/avaliacoes/notas', 'AvaliacaoController@notasProducoes');
+
 
 Route::get('/produzidos/index', 'ProduzidosController@index');
 Route::get('/produzidos/api/listardia/{dia}', 'ProduzidosController@listardia');
 Route::get('/produzidos/avaliar','ProduzidosController@show');
 Route::get('/produzidos/listavaliar/{dia}','ProduzidosController@show');
 Route::post('/produzidos/avaliar', 'ProduzidosController@store');
+
 
 
 

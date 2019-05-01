@@ -15,9 +15,13 @@ class ProducaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages/listproducoes');
+        if($request->dia){
+            return view('pages/listproducoes',['dia'=>$request->dia]);
+        }else{
+            return view('pages/listproducoes');
+        }
     }
 
     /**
@@ -38,13 +42,12 @@ class ProducaoController extends Controller
      */
     public function store(Request $request)
     {
-        //validate the data
-        // $request->validate([
-        //     'data'=>'required|date',
-        //     'cozinheiro'=>'required|notIn:Escolha',
-        //     'transfer'=>'required'
-        // ]);
-
+        // validate the data
+          $validateData =  $request->validate([
+            'datepicker'=>'required|date',
+            'cozinheiro'=>'required|notIn:Escolha',
+            'transfer'=>'required'
+            ]);
 
         if (!$request->id) {
             $producao = new Producao();
@@ -118,8 +121,12 @@ class ProducaoController extends Controller
         return back();
     }
     
-    public function listarproducoes() {
-        $producoes = Producao::all();
+    public function listarproducoes($dia=0) {
+        if ($dia!=0) {
+            $producoes = Producao::where('data',$dia)->get();
+        }else {
+            $producoes = Producao::where('data','>',date('Y-m-d',strtotime("-7 days")))->get();
+        }
         foreach ($producoes as $key => $value) {
             /*
             https://www.codigofonte.com.br/codigos/criar-um-objeto-sem-escrever-uma-classe-no-php
